@@ -71,7 +71,7 @@ unset PGPASSWORD
 
 3.1. С помощью официальной документации приведите пример команды инкрементного резервного копирования базы данных MySQL. 
 
-Ответ:
+Вариант 1:
 ```sql
 oci mysql backup create 
 --db-system-id <DBSystemOCID> 
@@ -92,6 +92,12 @@ oci mysql backup create
 Источник:
 ```
 https://docs.oracle.com/en-us/iaas/mysql-database/doc/creating-manual-backup.html#GUID-4DDABC9A-F649-40A4-90C0-12AFFF4C8276
+```
+Вариант 2:
+С помощью утилиты XtraBackup:
+```
+xtrabackup --backup --target-dir=/data/backups/inc1 --incremental-basedir=/data/backups/full
+xtrabackup --backup --target-dir=/data/backups/inc2 --incremental-basedir=/data/backups/inc1
 ```
 3.1.* В каких случаях использование реплики будет давать преимущество по сравнению с обычным резервным копированием?
 
