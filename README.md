@@ -79,7 +79,9 @@ oci mysql backup create
 --display-name <BackUpName>
 --retention-in-days <NumberOfDays>
 ```
-db-system-id: Укажите OCID системы базы данных.
+Примечание:
+
+- db-system-id: Укажите OCID системы базы данных.
 
 - backup-type: (Необязательно) Укажите тип резервной копии, ПОЛНОЙ или ДОБАВОЧНОЙ. Значение по умолчанию - ИНКРЕМЕНТНОЕ.
 
