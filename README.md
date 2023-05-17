@@ -16,15 +16,55 @@
 
 *Приведите ответ в свободной форме.*
 
+Ответ:
+1.1 Дифференциальный бэкап справится с этой задачей быстрей всех остальных методов.
+
+1.2 Инкрементный бэкап каждый час.
+
+1.3* Репликация master-slave.
+
 ---
 
 ### Задание 2. PostgreSQL
 
 2.1. С помощью официальной документации приведите пример команды резервирования данных и восстановления БД (pgdump/pgrestore).
 
+Ответ:
+
+Создать дамп при помощи утилиты pgdump:
+```sql
+pg_dump -U user > /tmp/my.dump
+```
+Восстановление с использованием pgrestore:
+```sql
+pg_restore -d mydb my.dump
+```
 2.1.* Возможно ли автоматизировать этот процесс? Если да, то как?
 
-*Приведите ответ в свободной форме.*
+Ответ:
+
+Здесь поможет скрипт:
+
+```bash
+#!/bin/sh
+PATH=/etc:/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
+
+PGPASSWORD=password
+export PGPASSWORD
+pathB=/backup
+dbUser=dbuser
+database=db
+
+find $pathB \( -name "*-1[^5].*" -o -name "*-[023]?.*" \) -ctime +61 -delete
+pg_dump -U $dbUser $database | gzip > $pathB/pgsql_$(date "+%Y-%m-%d").sql.gz
+
+unset PGPASSWORD
+```
+Запуск скрипта по расписанию через crontab: 
+```bash
+0 0 * * * /scripts/postgresql_dump.sh
+```
+
 
 ---
 
